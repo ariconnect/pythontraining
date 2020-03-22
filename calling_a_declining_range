@@ -1,0 +1,13 @@
+e=[]
+for x in range(6,0,-1):
+    e.append(x**2)
+print(e)
+
+f=[x**2 for x in range(6,0,-1)]
+print(f)
+
+a=[list(range(6,0,-1))]
+print(a)
+
+for x in range(6,0,-1):
+    print(x)
