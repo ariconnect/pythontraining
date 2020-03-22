@@ -1,0 +1,9 @@
+c=10
+d=8
+e=1
+
+def c_greater_than_d_plus_e(c,d,e):
+    return c>d+e
+
+f= c_greater_than_d_plus_e(20,1,10)
+print(f)
