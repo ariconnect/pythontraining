@@ -1,18 +1,8 @@
 import random
 import string
 
-
 class Employee():
-    def __init__(self, first_name, last_name, email):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-
-    def randomString(self):
-        letters = string.ascii_letters
-        return ''.join(random.choice(letters) for i in range(5))
-
-    def make_user(self):
+    def make_user():
         user = {}
         create_new_user = input('Would you like to make a new user?! Y/N ')
         if 'y' in create_new_user.lower():
@@ -20,17 +10,28 @@ class Employee():
             user['Name'] = input("First Name > ")
             user['Surname'] = input("Last Name > ")
             user['Email'] = input("Email Address > ")
-            password = str(user['Name'][:2] + user['Surname'][-2:] + Employee.randomString())
+            password = str(user['Name'][:2] + user['Surname'][-2:] + Employee.randomString(5))
             new_password = input(f"Are you happy with {password} as your new password? Y/N ")
             if 'y' in new_password.lower():
                 return (user)
             while True:
                 password = input("Create a new password with at least 7 characters > ")
                 if len(password) > 7:
-                    break
+                    return (user)
                 else:
                     print("Error:Please choose a password with at least 7 characters > ")
                     True
         else:
             print('Come back when you want to make a user :)')
             exit()
+
+    def randomString(self):
+        letters = string.ascii_letters
+        return ''.join(random.choice(letters) for i in range(5))
+
+employee_data= Employee.make_user()
+for user, user_details in employee_data.items():
+    print(user,"=>",user_details)
+
+
+
