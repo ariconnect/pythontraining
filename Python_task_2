@@ -4,34 +4,58 @@ import string
 class Employee():
     def make_user():
         user = {}
-        create_new_user = input('Would you like to make a new user?! Y/N ')
-        if 'y' in create_new_user.lower():
-            print('Great! Let\'s get started')
-            user['Name'] = input("First Name > ")
-            user['Surname'] = input("Last Name > ")
-            user['Email'] = input("Email Address > ")
-            password = str(user['Name'][:2] + user['Surname'][-2:] + Employee.randomString(5))
-            new_password = input(f"Are you happy with {password} as your new password? Y/N ")
-            if 'y' in new_password.lower():
-                return (user)
-            while True:
-                password = input("Create a new password with at least 7 characters > ")
-                if len(password) > 7:
-                    return (user)
-                else:
-                    print("Error:Please choose a password with at least 7 characters > ")
-                    True
-        else:
-            print('Come back when you want to make a user :)')
-            exit()
+        while True:
+            create_new_user = input('Would you like to make a new user?! Y/N ')
+            if 'y' in create_new_user.lower():
+                print('Great! Let\'s get started')
+                while True:
+                    user['Name'] = input('Enter a first name using only alphabetic characters: ')
+                    if user['Name'].isalpha():
+                        break
+                while True:
+                    user['Surname'] = input('Enter a last name using only alphabetic characters: ')
+                    if user['Surname'].isalpha():
+                        break
+                user['Email'] = input("Email Address > ")
+                password = str(user['Name'][:2] + user['Surname'][-2:] + Employee.randomString(5))
+                new_password = input(f"Are you happy with {password} as your new password? Y/N ")
+                user['Password'] = password
+                if 'y' in new_password.lower():
+                    continue
+                while True:
+                    password = input("Create a new password with at least 7 characters > ")
+                    user['Password'] = password
+                    if len(password) > 7:
+                        break
+                    else:
+                        print("Error:Please choose a password with at least 7 characters > ")
+                        True
+            else:
+                return user
+                
+
 
     def randomString(self):
         letters = string.ascii_letters
-        return ''.join(random.choice(letters) for i in range(5))
-
-employee_data= Employee.make_user()
-for user, user_details in employee_data.items():
-    print(user,"=>",user_details)
+        x = 5
+        return ''.join(random.choice(letters) for i in range(x))
 
 
 
+
+database = {}
+
+employee_data = Employee.make_user()
+
+for key, value in employee_data.items():
+     database.update({key:value})
+
+print(database)
+
+x = 
+
+ID = list(range(1,(x+1)))
+print(ID)
+
+D = dict(zip(ID, database))
+print(D)
