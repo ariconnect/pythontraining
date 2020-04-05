@@ -1,0 +1,69 @@
+import random  # needed because of random_password()
+import string  # needed because of random_password()
+
+
+def new_user():  # function to derive user details
+    print('Great! Let\'s get started')
+    while True:
+        first_name = input('Enter a first name using only alphabetic characters: ')
+        if first_name.isalpha():  # test if first_name inputted is alphabets only
+            break
+    while True:
+        last_name = input('Enter a last name using only alphabetic characters: ')
+        if last_name.isalpha():  # test if last_name inputted is alphabets only
+            break
+    email = input("Email Address > ")
+    user = [first_name, last_name, email]  # list containing user details
+    return user
+
+
+def random_password(new_user):  # function to derive default password which can be changed later
+    letters = string.ascii_letters  # all letters
+    length = 5  # random letters required
+    passcode = ''.join(random.choice(letters) for i in range(length))  # random passcode
+    default_password = str(user[0][:2] + user[1][-2:] + passcode)  # default password consisting of first 2 letters of
+    # first name, last 2 letters of last name and 5 random letters
+    return default_password
+
+
+status = True  # to test whether a new user is required after the first set of inputs
+container = []  # empty list where all inputs will be warehoused
+
+while status:
+    user = new_user()  # variable assigned to the function to derive user details
+    password = random_password(user)  # variable assigned to the function to derive default password which can be
+    # changed later
+    new_password = input(f"Are you happy with {password} as your new password? Y/N ")
+    password_loop = True  # allow user to create their own password
+    while password_loop:  # if user is okay with it, append default password to the user variable and break out of the
+        # password loop 
+        if 'y' in new_password.lower():
+            user.append(password)
+            container.append(user)
+            password_loop = False
+        else:
+
+            password_length = True  # if user is not okay with the default password, create a password with at least 7
+            # characters and append the created password to the user variable and break out of the password loop 
+            while password_length:
+                password = input("Create a new password with at least 7 characters > ")
+                if len(password) >= 7:
+                    user.append(password)
+                    container.append(user)
+                    password_length = False
+                    password_loop = False
+
+                else:
+                    print("Error:Please choose a password with at least 7 characters > ")  # if created password is 
+                    # not at least 7 characters, user has to try again 
+
+    else:
+        another_user = input('Would you like to make a new user?! Y/N ')  # once status turns false because the first
+        # user input has been concluded, user decides if he wants to input another user 
+        if 'y' in another_user.lower():  # if user wants to input another user then status changes back to True and 
+            # restarts 
+            status = True
+        else:
+            status = False # if not, all user information is printed out in a 2D list
+            for data in container:
+                print(data)
